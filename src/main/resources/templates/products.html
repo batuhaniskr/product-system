@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Studentlist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+
+</head>
+<body>
+<div class="container">
+
+    <div class="">
+        <h1>Products</h1>
+    </div>
+            <table class="table table-striped">
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+                <tr th:each = "product : ${products}">
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.category}"></td>
+                    <td th:text="${product.quantity}"></td>
+                    <td th:text="'$' + ${product.price}"></td>
+                    <td>
+                        <a th:href="@{/delete/{id}(id=${product.id})}" class="btn btn-danger">Delete</a>
+                        <a th:href="@{/edit/{id}(id=${product.id})}" class="btn btn-primary">Edit</a>
+                    </td>
+                </tr>
+            </table>
+            <a href="/add" class="btn btn-success">Add Student</a>
+</div>
+</body>
+</html>
