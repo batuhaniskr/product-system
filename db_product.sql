@@ -38,7 +38,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (4,'Game','Card Game',6,3),(5,'Technology','Samsun Galaxy S8',3500,3),(7,'Toys',' Play-Doh Fun Factory Set ',4.5,6),(26,NULL,'r',NULL,NULL),(27,NULL,'r',NULL,NULL);
+INSERT INTO `product` VALUES (4,'Game','Card Game',6,3),(5,'Technology','Samsun Galaxy S8',3500,3),(7,'Toys',' Play-Doh Fun Factory Set ',4.5,6);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
