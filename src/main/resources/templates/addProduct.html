@@ -1,13 +1,11 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>ProductList</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap.min.css}" />
-
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout.html}"><head>
+    <title>Add Product</title>
 </head>
 <body>
-<div class="container">
+<div layout:fragment="content" th:remove="tag">
 <h1>New Product</h1>
     <form th:object="${product}" th:action="@{save}" action="#" method="post">
         <div class="form-group">
@@ -31,5 +29,3 @@
 </div>
 </body>
 </html>
-
-

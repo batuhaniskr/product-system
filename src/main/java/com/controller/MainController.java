@@ -15,6 +15,15 @@ public class MainController {
     @Autowired
     private ProductRepository productRepository;
 
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    @RequestMapping("/access-denied")
+    public String accessDenied(){
+        return "error/access-denied";
+    }
     @RequestMapping("/products")
     public String index(Model model){
         List<Product> products = (List<Product>) productRepository.findAll();

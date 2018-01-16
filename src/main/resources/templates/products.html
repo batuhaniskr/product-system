@@ -1,16 +1,20 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:User="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/layout.html}">
 <head>
-    <title>Studentlist</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
-
+    <title>Products</title>
 </head>
 <body>
-<div class="container">
-
-    <div class="">
+<div layout:fragment="content" th:remove="tag">
+    <div class="container">
         <h1>Products</h1>
+        <span sec:authorize="isAuthenticated()" style="display: inline-block;" class="glyphicon glyphicon-user">
+                     <span sec:authentication="name"></span> |
+                    Role: <span sec:authentication="principal.authorities"></span> |
+                    <a th:href="@{/logout}">Sign Out</a>
+                </span><br/><br/>
     </div>
             <table class="table table-striped">
                 <tr>

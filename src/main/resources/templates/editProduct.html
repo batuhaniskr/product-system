@@ -1,13 +1,14 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout.html}">
 <head>
-    <title>ProductList</title>
+    <title>Edit Product</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap.min.css}" />
-
 </head>
 <body>
-<div class="container">
+<div layout:fragment="content" th:remove="tag">
     <h1>Edit Product</h1>
     <form th:object="${product}" th:action="@{../save}" action="#" method="post">
         <div class="form-group">
