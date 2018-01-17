@@ -47,7 +47,7 @@ There are 2 types of users.
 
 The application will be start running at http://localhost:8080/products
 
-## Screenshot
+## Screenshots
 
 ![screen shot 2018-01-17 at 11 04 26](https://user-images.githubusercontent.com/17202632/35032049-7ca094a2-fb76-11e7-9a70-b8c7f959d07c.png)
 
