@@ -24,6 +24,7 @@ public class MainController {
     public String accessDenied(){
         return "error/access-denied";
     }
+
     @RequestMapping("/products")
     public String index(Model model){
         List<Product> products = (List<Product>) productRepository.findAll();
