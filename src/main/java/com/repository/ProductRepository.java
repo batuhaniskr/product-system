@@ -6,6 +6,5 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-
 public interface ProductRepository extends CrudRepository<Product, Integer>{
 }
