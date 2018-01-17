@@ -1,6 +1,6 @@
 # Spring-Boot-Product-Automation
 
- Spring Boot Crud Application with Thymeleaf, JPA. 
+ Spring Boot Crud Application with Thymeleaf, JPA, Spring Security. 
  
 # Product Automation
 
@@ -9,6 +9,7 @@ This project based on the Spring Boot project and uses these packages:
 <ul>
 <li>Spring Boot</li>
 <li>Spring Data</li>
+ <li>Spring Security</li>
 <li>Thymleaf</li>
 <li>Bootstrap</li>
 <li>Maven</li>
@@ -37,9 +38,23 @@ The project is created with Maven.
 
 commands run the application.
 
+There are 2 types of users. 
+
+<pre>1- username: user pasword:user</pre>
+<pre>2- username: admin password:admin</pre>
+
+İf you try as user, you will get access denied on delete product page. You have to try as admin.
+
 The application will be start running at http://localhost:8080/products
 
 ## Screenshot
 
-![screen shot 2018-01-13 at 19 12 27](https://user-images.githubusercontent.com/17202632/34907839-e475caf4-f895-11e7-89ec-ea32f8560273.png)
+![screen shot 2018-01-17 at 11 04 26](https://user-images.githubusercontent.com/17202632/35032049-7ca094a2-fb76-11e7-9a70-b8c7f959d07c.png)
+
+<br/>
+
+![screen shot 2018-01-17 at 11 04 49](https://user-images.githubusercontent.com/17202632/35032055-8ad72a2c-fb76-11e7-8efd-52910ddf81b0.png)
+<br/><br/>
+
+![screen shot 2018-01-17 at 11 05 26](https://user-images.githubusercontent.com/17202632/35032150-ee90fef8-fb76-11e7-8ab1-7d6fa9974b40.png)
 
