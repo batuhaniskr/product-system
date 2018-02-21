@@ -45,7 +45,7 @@ There are 2 types of users.
 
 İf you try as user, you will get access denied on delete product page. You have to try as admin.
 
-The application will be start running at http://localhost:8080/products
+The application runs from http://localhost:8080/products
 
 ## Screenshots
 
