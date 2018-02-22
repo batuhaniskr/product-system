@@ -19,7 +19,7 @@ This project based on the Spring Boot project and uses these packages:
 
 ### 1. Clone the application
 
-<pre> $ git clone https://github.com/batuhaniskr/spring-boot-product-automation </pre>
+<pre> $ git clone https://github.com/batuhaniskr/spring-boot-product-automation.git </pre>
 
 ### 2. Database Configuration
 
