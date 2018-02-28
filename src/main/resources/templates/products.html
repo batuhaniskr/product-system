@@ -30,12 +30,12 @@
                     <td th:text="${product.quantity}"></td>
                     <td th:text="'$' + ${product.price}"></td>
                     <td>
-                        <a th:href="@{/delete/{id}(id=${product.id})}" class="btn btn-danger">Delete</a>
-                        <a th:href="@{/edit/{id}(id=${product.id})}" class="btn btn-primary">Edit</a>
+                        <a th:href="@{products/delete/{id}(id=${product.id})}" class="btn btn-danger">Delete</a>
+                        <a th:href="@{products/edit/{id}(id=${product.id})}" class="btn btn-primary">Edit</a>
                     </td>
                 </tr>
             </table>
-            <a href="/add" class="btn btn-success">Add Student</a>
+            <a href="/products/add" class="btn btn-success">Add Student</a>
 </div>
 </body>
 </html>

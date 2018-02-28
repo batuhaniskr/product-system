@@ -10,36 +10,27 @@ import com.repository.ProductRepository;
 import java.util.List;
 
 @Controller
+@RequestMapping("/products")
 public class MainController {
 
     @Autowired
     private ProductRepository productRepository;
 
-    @RequestMapping("/login")
-    public String login(){
-        return "login";
-    }
-
-    @RequestMapping("/access-denied")
-    public String accessDenied(){
-        return "error/access-denied";
-    }
-
-    @RequestMapping("/products")
+    @RequestMapping("")
     public String index(Model model){
         List<Product> products = (List<Product>) productRepository.findAll();
         model.addAttribute("products",products);
 
-        return "products";
+        return "/products";
     }
 
-    @RequestMapping(value = "add")
+    @RequestMapping(value = "/add")
     public String addProduct(Model model){
         model.addAttribute("product", new Product());
         return "addProduct";
     }
 
-    @RequestMapping(value = "save", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Product product){
         productRepository.save(product);
         return "redirect:/products";
