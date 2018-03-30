@@ -38,7 +38,7 @@ public class JpaUnitTest {
 
         productRepository.save(product);
 
-        Product findByProductName = productRepository.findOne(product.getId());
+         Product findByProductName = productRepository.findOne(product.getId());
 
         assertThat(findByProductName).hasFieldOrPropertyWithValue("name","testName");
     }

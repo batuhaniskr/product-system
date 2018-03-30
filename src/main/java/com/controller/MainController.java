@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.ProductService;
 import com.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,12 +14,16 @@ import java.util.List;
 @RequestMapping("/products")
 public class MainController {
 
+    private ProductService productService;
+
     @Autowired
-    private ProductRepository productRepository;
+    public MainController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @RequestMapping("")
     public String index(Model model){
-        List<Product> products = (List<Product>) productRepository.findAll();
+        List<Product> products = productService.getAllProduct();
         model.addAttribute("products",products);
 
         return "/products";
@@ -32,20 +37,20 @@ public class MainController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Product product){
-        productRepository.save(product);
+        productService.saveProduct(product);
         return "redirect:/products";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteProduct(@PathVariable("id") Integer id){
-        productRepository.delete(id);
+        productService.deleteProduct(id);
         return "redirect:/products";
     }
 
     @RequestMapping(value = "/edit/{id}")
     public String editProduct(@PathVariable("id") Integer id, Model model){
 
-        Product product = productRepository.findOne(id);
+        Product product = productService.getProductById(id);
         model.addAttribute("product", product);
 
         return "editProduct";
