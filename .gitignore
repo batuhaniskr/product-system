@@ -24,5 +24,8 @@
 hs_err_pid*
 
 target/
-.idea
+.ideagit
 *.iml
+
+.DS_Store
+.idea/
