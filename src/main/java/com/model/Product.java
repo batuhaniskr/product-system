@@ -1,6 +1,7 @@
 package com.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "product")
@@ -21,6 +22,14 @@ public class Product {
 
     @Column(name = "price")
     private Float price;
+
+    @Column(name = "created_at", updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+    @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
 
     public Integer getId() {
         return id;
@@ -60,5 +69,24 @@ public class Product {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    @PrePersist
+    public void onPrePersist() {
+            this.createdAt = new Date();
+            this.updatedAt = new Date();
+    }
+
+    @PreUpdate
+    public void onPreUpdate() {
+            this.updatedAt = new Date();
     }
 }
