@@ -25,13 +25,13 @@ public class MainController {
         List<Product> products = productService.getAllProduct();
         model.addAttribute("products",products);
 
-        return "/products";
+        return "products";
     }
 
     @RequestMapping(value = "/add")
     public String addProduct(Model model){
         model.addAttribute("product", new Product());
-        return "addProduct";
+        return "addproduct";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -52,6 +52,6 @@ public class MainController {
         Product product = productService.getProductById(id);
         model.addAttribute("product", product);
 
-        return "editProduct";
+        return "editproduct";
     }
 }
