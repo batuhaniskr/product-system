@@ -30,9 +30,17 @@ In this project MySQL database is used. db_product.sql file is imported from MyS
 </ul>
 The project is created with Maven.
 
-### 3. Build and run the app using maven
+### 3. Launch
 
-<pre>mvn clean install</pre>
+To run the application through the docker:
+
+<pre>mvn clean package -DskipTests</pre>
+
+<pre>docker-compose up</pre>
+
+or to run the application locally:
+
+<pre>mvn clean install -DskipTests</pre>
 
 <pre>mvn spring-boot:run</pre>
 
