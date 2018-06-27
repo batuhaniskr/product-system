@@ -3,6 +3,9 @@ version: '3'
 services:
   app:
       image: spring-product-system
+      build:
+            context: .
+            dockerfile: ./Dockerfile
       depends_on:
         - demo-mysql
       ports:
