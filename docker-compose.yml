@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  app:
+      image: spring-product-system
+      build:
+            context: .
+            dockerfile: ./Dockerfile
+      depends_on:
+        - demo-mysql
+      ports:
+        - 8080:8080
+      environment:
+        - DATABASE_HOST=demo-mysql
+        - DATABASE_USER=demo_user
+        - DATABASE_PASSWORD=demo_pass
+        - DATABASE_NAME=db_product
+        - DATABASE_PORT=3306
+  demo-mysql:
+    image: mysql:5.6
+    ports:
+          - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=db_product
+      - MYSQL_PASSWORD=demo_pass
+      - MYSQL_USER=demo_user
