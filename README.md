@@ -23,10 +23,10 @@ This project based on the Spring Boot project and uses these packages:
 
 ### 2. Database Configuration
 
-In this project MySQL database is used. db_product.sql file is imported from MySQL.
+MySQL is used as the database.
 <ul>
 <li> Open src/main/resources/application.properties </li>
-<li> Change spring.datasource.username and spring.datasource.password as per your mysql installation</li>
+<li> If you run the application locally, change spring.datasource.username and spring.datasource.password as per your mysql installation</li>
 </ul>
 The project is created with Maven.
 
