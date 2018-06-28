@@ -1,4 +1,4 @@
-# Spring-Boot-Product-Automation
+# Spring-Boot-Product-System
 
  Spring Boot Crud Application with Thymeleaf, JPA, Spring Security. 
  
