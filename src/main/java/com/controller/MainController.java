@@ -21,34 +21,36 @@ public class MainController {
     }
 
     @RequestMapping("")
-    public String index(Model model){
+    public String index(Model model) {
         List<Product> products = productService.getAllProduct();
-        model.addAttribute("products",products);
+        model.addAttribute("products", products);
 
         return "products";
     }
 
     @RequestMapping(value = "/add")
-    public String addProduct(Model model){
+    public String addProduct(Model model) {
         model.addAttribute("product", new Product());
+
         return "addproduct";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(Product product){
+    public String save(Product product) {
         productService.saveProduct(product);
+
         return "redirect:/products";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String deleteProduct(@PathVariable("id") Integer id){
+    public String deleteProduct(@PathVariable("id") Integer id) {
         productService.deleteProduct(id);
+
         return "redirect:/products";
     }
 
     @RequestMapping(value = "/edit/{id}")
-    public String editProduct(@PathVariable("id") Integer id, Model model){
-
+    public String editProduct(@PathVariable("id") Integer id, Model model) {
         Product product = productService.getProductById(id);
         model.addAttribute("product", product);
 
