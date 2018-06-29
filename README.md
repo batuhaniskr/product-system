@@ -57,11 +57,11 @@ The application runs from http://localhost:8080/products
 
 ## Screenshots
 
-![1](https://user-images.githubusercontent.com/17202632/42084113-79fb9f5e-7b95-11e8-962c-c3c65e3889be.png)
-
-<br/>
-
 ![2](https://user-images.githubusercontent.com/17202632/42084230-c2318c5c-7b95-11e8-8a74-e56fc85ef527.png)
+
+<br>
+
+![1](https://user-images.githubusercontent.com/17202632/42084113-79fb9f5e-7b95-11e8-962c-c3c65e3889be.png)
 
 <br/><br/>
 
