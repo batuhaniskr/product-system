@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -78,5 +79,10 @@ public class MainController {
         model.addAttribute("product", product);
 
         return "editproduct";
+    }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public String handlerException() {
+        return "error/404";
     }
 }
