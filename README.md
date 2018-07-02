@@ -4,13 +4,13 @@
  
 # Product System
 
-This project based on the Spring Boot project and uses these packages:
+This project based on the Spring Boot project and used packages:
 
 <ul>
 <li>Spring Boot</li>
 <li>Spring Data</li>
  <li>Spring Security</li>
-<li>Thymleaf</li>
+<li>Thymeleaf</li>
 <li>JavaScript</li>
 <li>Maven</li>
 </ul>
@@ -34,13 +34,13 @@ The project is created with Maven.
 
 To run the application through the docker:
 
-<pre>mvn clean package -DskipTests</pre>
+<pre>mvn clean package</pre>
 
 <pre>docker-compose up</pre>
 
 or to run the application locally:
 
-<pre>mvn clean install -DskipTests</pre>
+<pre>mvn clean install</pre>
 
 <pre>mvn spring-boot:run</pre>
 
