@@ -14,6 +14,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/*
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -25,8 +26,8 @@ public class JpaUnitTest {
     @Autowired
     private ProductRepository productRepository;
 
-    @Test
-    public void testFindByProductName(){
+    //@Test
+    public void testFindByProductName() {
 
         Product product = new Product();
 
@@ -38,8 +39,8 @@ public class JpaUnitTest {
 
         productRepository.save(product);
 
-         Product findByProductName = productRepository.findOne(product.getId());
+        Product findByProductName = productRepository.findOne(product.getId());
 
-        assertThat(findByProductName).hasFieldOrPropertyWithValue("name","testName");
+        assertThat(findByProductName).hasFieldOrPropertyWithValue("name", "testName");
     }
-}
+} */
