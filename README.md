@@ -71,4 +71,4 @@ The application runs from http://localhost:8080/products
 
 ![4](https://user-images.githubusercontent.com/17202632/42084457-614bbca4-7b96-11e8-9303-f5f12572e68f.png)
 
-
+![6](https://user-images.githubusercontent.com/17202632/42167116-b127082e-7e15-11e8-8cb2-a8b3ddedde89.png)
