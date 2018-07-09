@@ -54,7 +54,7 @@
                 <thead>
                 <tr class="success">
                     <th>Name</th>
-                    <th>Category</th>
+                    <th>CategoryId</th>
                     <th>Quantity</th>
                     <th>Price</th>
                     <th>Actions</th>
@@ -63,7 +63,7 @@
                 <tbody>
                 <tr th:each="product : ${productPage.content}" id="products" class="success">
                     <td class="productname" th:text="${product.name}"></td>
-                    <td th:text="${product.category}"></td>
+                    <td th:text="${product.category.id}"></td>
                     <td th:text="${product.quantity}"></td>
                     <td th:text="'$' + ${product.price}"></td>
                     <td>

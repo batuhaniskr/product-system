@@ -14,9 +14,6 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "category")
-    private String category;
-
     @Column(name = "quantity")
     private Integer quantity;
 
@@ -30,6 +27,21 @@ public class Product {
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
+    @Transient
+    public String categoryName;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 
     public Integer getId() {
         return id;
@@ -45,14 +57,6 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public Float getPrice() {
@@ -79,14 +83,22 @@ public class Product {
         return updatedAt;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @PrePersist
     public void onPrePersist() {
-            this.createdAt = new Date();
-            this.updatedAt = new Date();
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     @PreUpdate
     public void onPreUpdate() {
-            this.updatedAt = new Date();
+        this.updatedAt = new Date();
     }
 }

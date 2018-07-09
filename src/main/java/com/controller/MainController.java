@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -53,7 +54,7 @@ public class MainController {
 
 
     @RequestMapping(value = "/add")
-    public String addProduct(Model model) {
+    public String addProduct(@Valid Model model) {
         model.addAttribute("product", new Product());
 
         return "addproduct";
@@ -62,7 +63,7 @@ public class MainController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Product product) {
         productService.saveProduct(product);
-
+        System.out.println(product.getCategory());
         return "redirect:/products";
     }
 
