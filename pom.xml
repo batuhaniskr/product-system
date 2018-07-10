@@ -85,7 +85,11 @@
             <artifactId>spring-security-config</artifactId>
             <version>4.2.3.RELEASE</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>5.0.7</version>
+        </dependency>
     </dependencies>
 
     <build>

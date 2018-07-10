@@ -15,6 +15,7 @@ public class Category {
     @Column(nullable = false, name = "category_name")
     private String categoryName;
 
+    @Column(nullable = false)
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Product> productSet;
 
