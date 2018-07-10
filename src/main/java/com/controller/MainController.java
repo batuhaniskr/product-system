@@ -1,5 +1,7 @@
 package com.controller;
 
+import com.model.Category;
+import com.service.CategoryService;
 import com.service.ProductService;
 import com.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +24,15 @@ import java.util.stream.IntStream;
 public class MainController {
 
     private ProductService productService;
+    private CategoryService categoryService;
 
     private static int currentPage = 1;
     private static int pageSize = 5;
 
     @Autowired
-    public MainController(ProductService productService) {
+    public MainController(ProductService productService, CategoryService categoryService) {
         this.productService = productService;
+        this.categoryService = categoryService;
     }
 
     @RequestMapping("")
@@ -55,7 +59,9 @@ public class MainController {
 
     @RequestMapping(value = "/add")
     public String addProduct(@Valid Model model) {
+        List<Category> categoryList = categoryService.getAllCategory();
         model.addAttribute("product", new Product());
+        model.addAttribute("categoryList", categoryService.getAllCategory());
 
         return "addproduct";
     }
@@ -63,7 +69,7 @@ public class MainController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Product product) {
         productService.saveProduct(product);
-        System.out.println(product.getCategory());
+
         return "redirect:/products";
     }
 
@@ -77,7 +83,9 @@ public class MainController {
     @RequestMapping(value = "/edit/{id}")
     public String editProduct(@PathVariable("id") Integer id, Model model) {
         Product product = productService.getProductById(id);
+        List<Category> categoryList = categoryService.getAllCategory();
         model.addAttribute("product", product);
+        model.addAttribute("categoryList", categoryList);
 
         return "editproduct";
     }
