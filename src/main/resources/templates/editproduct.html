@@ -19,9 +19,14 @@
                     <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Name"/>
                 </div>
                 <div class="form-group">
-                    <label for="categoryName">Category</label>
-                    <input type="text" class="form-control" id="categoryName" th:field="*{category.categoryName}"
-                           placeholder="Category"/>
+                    <label>Category</label>
+                    <select class="form-control" th:field="*{category.categoryName}" style="width: 145px">
+                        <option value="">Select Category</option>
+                        <option th:each="category : ${categoryList}"
+                                th:value="${category.categoryName}"
+                                th:text="${category.categoryName}">
+                        </option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="quantity">Quantity</label>
