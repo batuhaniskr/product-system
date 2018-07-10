@@ -62,6 +62,7 @@ public class MainController {
         List<Category> categoryList = categoryService.getAllCategory();
         model.addAttribute("product", new Product());
         model.addAttribute("categoryList", categoryService.getAllCategory());
+
         return "addproduct";
     }
 
