@@ -17,4 +17,4 @@ CREATE TABLE IF NOT EXISTS`product` (
   CONSTRAINT `FK1mtsbur82frn64de7balymq9s` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `category` VALUES (1,'Teknoloji'),(2,'Toy'),(3,'Book'),(4,'Food'),(5,'Sport'),(6,'Clothing'),(7,'Beauty');
+INSERT INTO `category` VALUES (1,'Technology'),(2,'Toy'),(3,'Book'),(4,'Food'),(5,'Sport'),(6,'Clothing'),(7,'Beauty');
