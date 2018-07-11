@@ -61,13 +61,11 @@ The application runs from http://localhost:8080/products
 
 <br>
 
-![1](https://user-images.githubusercontent.com/17202632/42084113-79fb9f5e-7b95-11e8-962c-c3c65e3889be.png)
-
-<br/><br/>
-
-![5](https://user-images.githubusercontent.com/17202632/42084438-502579ec-7b96-11e8-80ae-117366ee570b.png)
-
+![screen shot 2018-07-11 at 09 19 15](https://user-images.githubusercontent.com/17202632/42553996-cba19d54-84eb-11e8-8538-249de1b23cf0.png)
 <br/>
+
+![screen shot 2018-07-11 at 09 18 59](https://user-images.githubusercontent.com/17202632/42553933-9f32c144-84eb-11e8-8cd3-3cec10c94354.png)
+<br/><br/>
 
 ![4](https://user-images.githubusercontent.com/17202632/42084457-614bbca4-7b96-11e8-9303-f5f12572e68f.png)
 
