@@ -53,6 +53,7 @@ public class MainController {
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
+
         return "products";
     }
 
@@ -61,7 +62,7 @@ public class MainController {
     public String addProduct(@Valid Model model) {
         List<Category> categoryList = categoryService.getAllCategory();
         model.addAttribute("product", new Product());
-        model.addAttribute("categoryList", categoryService.getAllCategory());
+        model.addAttribute("categoryList", categoryList);
 
         return "addproduct";
     }
