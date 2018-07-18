@@ -13,10 +13,7 @@ import javax.validation.constraints.AssertTrue;
 public class UserRegistrationDto {
 
     @NotEmpty
-    private String firstName;
-
-    @NotEmpty
-    private String lastName;
+    private String username;
 
     @NotEmpty
     private String password;
@@ -31,20 +28,12 @@ public class UserRegistrationDto {
     @AssertTrue
     private Boolean terms;
 
-    public String getFirstName() {
-        return firstName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
