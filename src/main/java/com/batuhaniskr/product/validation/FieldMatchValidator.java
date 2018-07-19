@@ -1,4 +1,4 @@
-package com.validation;
+package com.batuhaniskr.product.validation;
 
 import org.apache.commons.beanutils.BeanUtils;
 import javax.validation.ConstraintValidator;

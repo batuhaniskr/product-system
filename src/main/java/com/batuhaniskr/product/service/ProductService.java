@@ -1,9 +1,9 @@
-package com.service;
+package com.batuhaniskr.product.service;
 
-import com.model.Category;
-import com.model.Product;
-import com.repository.CategoryRepository;
-import com.repository.ProductRepository;
+import com.batuhaniskr.product.model.Category;
+import com.batuhaniskr.product.model.Product;
+import com.batuhaniskr.product.repository.CategoryRepository;
+import com.batuhaniskr.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

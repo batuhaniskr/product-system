@@ -1,4 +1,4 @@
-package com.validation;
+package com.batuhaniskr.product.validation;
 
 import javax.validation.Payload;
 import javax.validation.Constraint;

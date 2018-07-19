@@ -1,7 +1,7 @@
-package com.service;
+package com.batuhaniskr.product.service;
 
-import com.dto.UserRegistrationDto;
-import com.model.User;
+import com.batuhaniskr.product.dto.UserRegistrationDto;
+import com.batuhaniskr.product.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Repository;
 

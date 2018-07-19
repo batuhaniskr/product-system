@@ -1,4 +1,4 @@
-package com.model;
+package com.batuhaniskr.product.model;
 
 import javax.persistence.*;
 import java.util.Date;

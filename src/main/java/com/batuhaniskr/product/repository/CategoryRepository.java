@@ -1,6 +1,6 @@
-package com.repository;
+package com.batuhaniskr.product.repository;
 
-import com.model.Category;
+import com.batuhaniskr.product.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {

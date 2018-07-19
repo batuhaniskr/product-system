@@ -1,9 +1,9 @@
-package com.service;
+package com.batuhaniskr.product.service;
 
-import com.dto.UserRegistrationDto;
-import com.model.Role;
-import com.model.User;
-import com.repository.UserRepository;
+import com.batuhaniskr.product.dto.UserRegistrationDto;
+import com.batuhaniskr.product.model.Role;
+import com.batuhaniskr.product.model.User;
+import com.batuhaniskr.product.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,13 +21,13 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

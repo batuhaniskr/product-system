@@ -1,7 +1,7 @@
-package com.service;
+package com.batuhaniskr.product.service;
 
-import com.model.Category;
-import com.repository.CategoryRepository;
+import com.batuhaniskr.product.model.Category;
+import com.batuhaniskr.product.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

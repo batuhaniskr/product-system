@@ -1,9 +1,9 @@
-package com.controller;
+package com.batuhaniskr.product.controller;
 
-import com.model.Category;
-import com.service.CategoryService;
-import com.service.ProductService;
-import com.model.Product;
+import com.batuhaniskr.product.model.Category;
+import com.batuhaniskr.product.service.CategoryService;
+import com.batuhaniskr.product.service.ProductService;
+import com.batuhaniskr.product.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

@@ -1,8 +1,8 @@
-package com.controller;
+package com.batuhaniskr.product.controller;
 
-import com.dto.UserRegistrationDto;
-import com.model.User;
-import com.service.UserService;
+import com.batuhaniskr.product.dto.UserRegistrationDto;
+import com.batuhaniskr.product.model.User;
+import com.batuhaniskr.product.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
