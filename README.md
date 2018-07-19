@@ -49,8 +49,7 @@ commands run the application.
 There are users of type user and admin.
 
 Admin Credential: 
-<pre>1- email:  admin@gmail.com": "password :admin"</pre>
-<pre>2- username: admin password:admin</pre>
+<pre>1- email: admin@gmail.com  password: admin</pre>
 
 İf you try as user, you will get access denied on delete product page. You have to try as admin.
 
