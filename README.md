@@ -46,6 +46,8 @@ or to run the application locally:
 
 commands run the application.
 
+Application runs from localhost:8080/products
+
 There are users of type user and admin.
 
 Admin Credential: 
