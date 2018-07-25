@@ -39,8 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/css/**",
                         "/img/**",
                         "/webjars/**").permitAll()
-                    .anyRequest().authenticated()
-                    .antMatchers("/products/delete/**").hasRole("ADMIN")
+                    .antMatchers("/products/delete/**").hasAuthority("ROLE_ADMIN")
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
@@ -56,15 +55,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                     .accessDeniedHandler(myAccessDeniedHandler);
     }
-
-    /*@Autowired
-    public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
-        authenticationManagerBuilder
-                .inMemoryAuthentication()
-                    .withUser("user").password("user").roles("USER")
-                .and()
-                    .withUser("admin").password("admin").roles("ADMIN");
-    }*/
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
