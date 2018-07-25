@@ -16,6 +16,8 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -28,6 +30,7 @@ public class MainController {
 
     private static int currentPage = 1;
     private static int pageSize = 5;
+    private static final Logger LOG = Logger.getLogger(MainController.class.getName());
 
     @Autowired
     public MainController(ProductService productService, CategoryService categoryService) {
@@ -69,6 +72,7 @@ public class MainController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Product product) {
+        LOG.log(Level.INFO, "/ " + product.getName());
         productService.saveProduct(product);
 
         return "redirect:/products";
