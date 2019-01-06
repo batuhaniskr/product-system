@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/batuhaniskr/spring-boot-product-system.svg?branch=master)](https://travis-ci.org/batuhaniskr/spring-boot-product-system)
 # Spring-Boot-Product-System
 
  Spring Boot Crud Application with Thymeleaf, JPA, Spring Security. 
