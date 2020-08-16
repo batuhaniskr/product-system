@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -26,6 +27,9 @@ public class User implements Serializable {
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 
+    @OneToMany
+    private List<Product> product;
+
     public User() {
     }
 
@@ -40,6 +44,14 @@ public class User implements Serializable {
         this.email = email;
         this.password = password;
         this.roles = roles;
+    }
+
+    public List<Product> getProduct() {
+        return product;
+    }
+
+    public void setProduct(List<Product> product) {
+        this.product = product;
     }
 
     public Long getId() {
