@@ -72,7 +72,7 @@ public class MainController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Product product) {
-        LOG.log(Level.INFO, "/ " + product.getName());
+        LOG.log(Level.INFO, "/ {0}",product.getName());
         productService.saveProduct(product);
 
         return "redirect:/products";
