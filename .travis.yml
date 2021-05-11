@@ -1,4 +1,5 @@
 langauge: java
 jdk:
-  - oraclejdk8
+  - oraclejdk9
+dist: trusty
 script: mvn clean install

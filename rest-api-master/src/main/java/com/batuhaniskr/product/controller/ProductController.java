@@ -2,7 +2,10 @@ package com.batuhaniskr.product.controller;
 
 import java.util.List;
 
+import com.batuhaniskr.product.model.User;
+import com.batuhaniskr.product.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,10 +24,14 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
+
+	@Autowired
+	private UserService userService;
    
    @GetMapping(path = "/products", produces = "application/json")
-   public List<Product> getAllProduct() {
-	   List<Product> productList =  productService.getAllProduct();
+   public List<Product> getAllProduct(Authentication authentication) {
+       String username = authentication.getName();
+	   List<Product> productList =  productService.getAllProduct(username);
 	   
 	   return productList;
    }
@@ -37,8 +44,10 @@ public class ProductController {
    }
    
    @PostMapping("/products")
-   public Product saveProduct(@RequestBody Product newProduct) {
-		  return productService.saveProduct(newProduct);	 
+   public Product saveProduct(@RequestBody Product newProduct, Authentication authentication) {
+       String username = authentication.getName();
+
+       return productService.saveProduct(newProduct, username);
    }
    
    @DeleteMapping(path = "/products/{id}")
@@ -47,12 +56,14 @@ public class ProductController {
    }
    
    @PutMapping("/products/{id}")
-   public void updateProduct(@PathVariable Integer id, @RequestBody Product updateProduct) {
+   public void updateProduct(@PathVariable Integer id, @RequestBody Product updateProduct, Authentication authentication) {
 	   Product product = productService.getProductById(id);
 	   product.setName(updateProduct.getName());
 	   product.setPrice(updateProduct.getPrice());
 	   product.setQuantity(updateProduct.getQuantity());
 	   product.setCategory(updateProduct.getCategory());
-	   productService.saveProduct(product);
+
+	   String username = authentication.getName();
+	   productService.saveProduct(product, username);
    }
 }

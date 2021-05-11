@@ -2,9 +2,10 @@ package com.batuhaniskr.product;
 
 import com.batuhaniskr.product.model.Category;
 import com.batuhaniskr.product.model.Product;
-import com.batuhaniskr.product.repository.CategoryRepository;
 import com.batuhaniskr.product.repository.ProductRepository;
+import com.batuhaniskr.product.service.CategoryService;
 import com.batuhaniskr.product.service.ProductService;
+import com.batuhaniskr.product.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -20,11 +21,14 @@ public class ProductServiceTests {
     private ProductRepository productRepository;
 
     @Mock
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
+
+    @Mock
+    private UserService userService;
 
     @Test
     public void getProductById() {
-        ProductService productService = new ProductService(productRepository, categoryRepository);
+        ProductService productService = new ProductService(productRepository, categoryService, userService);
         Product product = new Product();
         product.setId(1);
         product.setName("Test");

@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS`product` (
   `updated_at` datetime DEFAULT NULL,
   `category_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE (`name`),
   KEY `FK1mtsbur82frn64de7balymq9s` (`category_id`),
   CONSTRAINT `FK1mtsbur82frn64de7balymq9s` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

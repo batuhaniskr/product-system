@@ -25,4 +25,8 @@ public class CategoryService {
     public Category getCategoryById(int id) {
     	return categoryRepository.findOne(id);
     }
+
+    public Category getCategoryByName(String name) {
+        return categoryRepository.findByCategoryName(name);
+    }
 }
