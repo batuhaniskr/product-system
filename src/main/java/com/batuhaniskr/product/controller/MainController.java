@@ -1,9 +1,9 @@
 package com.batuhaniskr.product.controller;
 
-import com.batuhaniskr.product.model.Category;
+import com.batuhaniskr.product.dto.CategoryDTO;
+import com.batuhaniskr.product.dto.ProductDTO;
 import com.batuhaniskr.product.service.CategoryService;
 import com.batuhaniskr.product.service.ProductService;
-import com.batuhaniskr.product.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,14 +38,14 @@ public class MainController {
         this.categoryService = categoryService;
     }
 
-    @RequestMapping("")
+    @GetMapping("")
     public String index(Model model, @RequestParam("page") Optional<Integer> page,
                         @RequestParam("size") Optional<Integer> size) {
         page.ifPresent(p -> currentPage = p);
         size.ifPresent(s -> pageSize = s);
 
         Pageable pageable = new PageRequest(currentPage - 1, pageSize);
-        Page<Product> productPage = productService.getAllProduct(pageable);
+        Page<ProductDTO> productPage = productService.getAllProduct(pageable);
 
         model.addAttribute("productPage", productPage);
 
@@ -61,34 +61,34 @@ public class MainController {
     }
 
 
-    @RequestMapping(value = "/add")
+    @GetMapping(value = "/add")
     public String addProduct(@Valid Model model) {
-        List<Category> categoryList = categoryService.getAllCategory();
-        model.addAttribute("product", new Product());
+        List<CategoryDTO> categoryList = categoryService.getAllCategory();
+        model.addAttribute("product", new ProductDTO());
         model.addAttribute("categoryList", categoryList);
 
         return "addproduct";
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(Product product) {
-        LOG.log(Level.INFO, "/ {0}",product.getName());
-        productService.saveProduct(product);
+    @PostMapping(value = "/save")
+    public String save(ProductDTO productDTO) {
+        LOG.log(Level.INFO, "/ {0}",productDTO.getName());
+        productService.saveProduct(productDTO);
 
         return "redirect:/products";
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/delete/{id}")
     public String deleteProduct(@PathVariable("id") Integer id) {
         productService.deleteProduct(id);
 
         return "redirect:/products";
     }
 
-    @RequestMapping(value = "/edit/{id}")
+    @GetMapping(value = "/edit/{id}")
     public String editProduct(@PathVariable("id") Integer id, Model model) {
-        Product product = productService.getProductById(id);
-        List<Category> categoryList = categoryService.getAllCategory();
+        ProductDTO product = productService.getProductById(id);
+        List<CategoryDTO> categoryList = categoryService.getAllCategory();
         model.addAttribute("product", product);
         model.addAttribute("categoryList", categoryList);
 

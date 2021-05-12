@@ -1,7 +1,6 @@
 package com.batuhaniskr.product.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -35,14 +34,11 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    public Set<Product> getProduct() {
+    public Set<Product> getProductSet() {
         return productSet;
     }
 
-    public void setProduct(Product product) {
-        if (productSet.size() == 0) {
-            productSet = new HashSet<>();
-        }
-        productSet.add(product);
+    public void setProductSet(Set<Product> productSet) {
+        this.productSet = productSet;
     }
 }
