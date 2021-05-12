@@ -44,6 +44,7 @@ public class ProductServiceTests {
         category.setCategoryName("TestCategory");
         category.setId(1);
         productDTO.setCategory(category);
+
         Product product = mockModelMapper.map(productDTO, Product.class);
         productRepository.save(product);
 
