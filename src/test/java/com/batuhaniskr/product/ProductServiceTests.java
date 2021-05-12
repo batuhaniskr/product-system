@@ -21,7 +21,6 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 public class ProductServiceTests {
 
     @Mock
@@ -32,9 +31,6 @@ public class ProductServiceTests {
 
     @Mock
     private CategoryRepository categoryRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
 
     @Test
     public void getProductById() {
@@ -48,7 +44,7 @@ public class ProductServiceTests {
         category.setCategoryName("TestCategory");
         category.setId(1);
         productDTO.setCategory(category);
-        Product product = modelMapper.map(productDTO, Product.class);
+        Product product = mockModelMapper.map(productDTO, Product.class);
         productRepository.save(product);
 
         when(productRepository.findOne(1)).thenReturn(product);
