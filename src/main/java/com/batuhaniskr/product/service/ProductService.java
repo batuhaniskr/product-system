@@ -17,14 +17,15 @@ public class ProductService {
 
     private ProductRepository productRepository;
     private CategoryRepository categoryRepository;
-
-    @Autowired
     private ModelMapper modelMapper;
 
     @Autowired
-    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
+    public ProductService(ProductRepository productRepository,
+                          CategoryRepository categoryRepository,
+                          ModelMapper modelMapper) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
+        this.modelMapper = modelMapper;
     }
 
     public Page<ProductDTO> getAllProduct(Pageable pageable) {
