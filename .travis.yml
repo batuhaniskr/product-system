@@ -1,0 +1,5 @@
+langauge: java
+jdk:
+  - oraclejdk9
+dist: trusty
+script: mvn clean install
