@@ -7,7 +7,6 @@ import com.batuhaniskr.product.dto.ProductDTO;
 import com.batuhaniskr.product.service.CategoryService;
 import com.batuhaniskr.product.service.ProductService;
 import com.batuhaniskr.product.service.UserService;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -22,15 +21,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -82,6 +80,65 @@ public class MainControllerTest {
                 .andExpect(view().name("products"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("productPage"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("pageNumbers"));
+    }
+
+    @Test
+    public void saveProduct() throws Exception {
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setId(1);
+        categoryDTO.setCategoryName("Teknoloji");
+
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setName("Test Product");
+        productDTO.setPrice(10.99F);
+        productDTO.setQuantity(1);
+        productDTO.setCategory(categoryDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.post(
+                "/products/save"
+        ).with(csrf()).with(user("batuhan").roles("USER"))
+                .flashAttr("productDTO", productDTO))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/products"));
+    }
+
+    @Test
+    public void saveProduct_withoutcsrf() throws Exception {
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setId(1);
+        categoryDTO.setCategoryName("Teknoloji");
+
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setName("Test Product");
+        productDTO.setPrice(10.99F);
+        productDTO.setQuantity(-1);
+        productDTO.setCategory(categoryDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.post(
+                                "/products/save"
+                        ).with(user("batuhan").roles("USER"))
+                        .flashAttr("productDTO", productDTO))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/access-denied"));
+    }
+
+    @Test
+    public void givenNegativeQuantity_whenSaveProduct_thenReturnsBadRequest() throws Exception {
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setId(1);
+        categoryDTO.setCategoryName("Teknoloji");
+
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setName("Test Product");
+        productDTO.setPrice(10.99F);
+        productDTO.setQuantity(-1);
+        productDTO.setCategory(categoryDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.post(
+                                "/products/save"
+                        ).with(csrf()).with(user("batuhan").roles("USER"))
+                        .flashAttr("productDTO", productDTO))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
