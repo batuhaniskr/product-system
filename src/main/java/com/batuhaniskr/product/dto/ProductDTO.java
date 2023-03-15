@@ -1,9 +1,13 @@
 package com.batuhaniskr.product.dto;
 
+import javax.validation.constraints.Min;
+
 public class ProductDTO {
 
     private Integer id;
     private String name;
+
+    @Min(0)
     private Integer quantity;
     private Float price;
     private CategoryDTO category;

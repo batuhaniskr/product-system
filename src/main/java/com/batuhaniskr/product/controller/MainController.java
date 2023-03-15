@@ -71,7 +71,7 @@ public class MainController {
     }
 
     @PostMapping(value = "/save")
-    public String save(ProductDTO productDTO) {
+    public String save(@Valid ProductDTO productDTO) {
         LOG.log(Level.INFO, "/ {0}",productDTO.getName());
         productService.saveProduct(productDTO);
 

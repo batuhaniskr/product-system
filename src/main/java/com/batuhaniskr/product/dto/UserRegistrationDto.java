@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.Pattern;
 
 @FieldMatch.List({
         @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
@@ -16,9 +17,13 @@ public class UserRegistrationDto {
     private String username;
 
     @NotEmpty
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",
+            message = "Must a password be at least 8 characters and include at least one letter, one number")
     private String password;
 
     @NotEmpty
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",
+            message = "Must a password be at least 8 characters and include at least one letter, one number")
     private String confirmPassword;
 
     @Email
