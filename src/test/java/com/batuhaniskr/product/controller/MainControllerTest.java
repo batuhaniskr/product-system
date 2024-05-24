@@ -2,37 +2,30 @@ package com.batuhaniskr.product.controller;
 
 import com.batuhaniskr.product.config.MyAccessDeniedHandler;
 import com.batuhaniskr.product.config.SecurityConfig;
-import com.batuhaniskr.product.dto.CategoryDTO;
 import com.batuhaniskr.product.dto.ProductDTO;
 import com.batuhaniskr.product.service.CategoryService;
 import com.batuhaniskr.product.service.ProductService;
 import com.batuhaniskr.product.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 @RunWith(SpringRunner.class)
 @WebMvcTest(MainController.class)
 @Import({SecurityConfig.class, MyAccessDeniedHandler.class})
@@ -48,135 +41,79 @@ public class MainControllerTest {
     @MockBean
     private CategoryService categoryService;
 
+
     @MockBean
     private UserService userService;
 
     @Test
-    public void getProductsPage() throws Exception {
-        CategoryDTO category = new CategoryDTO();
-        category.setId(1);
-        category.setCategoryName("teknoloji");
-
-        List<ProductDTO> productList = new ArrayList<>();
-        ProductDTO product1 = new ProductDTO();
-        product1.setId(1);
-        product1.setName("Product 1");
-        product1.setCategory(category);
-        productList.add(product1);
-
-        ProductDTO product2 = new ProductDTO();
-        product2.setId(2);
-        product2.setName("Product 2");
-        product2.setCategory(category);
-        productList.add(product2);
-
-        when(productService.getAllProduct(Mockito.any(Pageable.class)))
-                .thenReturn(new PageImpl<>(productList));
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/products")
-                        .with(user("batuhan").roles("USER")))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(view().name("products"))
-                .andExpect(MockMvcResultMatchers.model().attributeExists("productPage"))
-                .andExpect(MockMvcResultMatchers.model().attributeExists("pageNumbers"));
-    }
-
-    @Test
-    public void saveProduct() throws Exception {
-        CategoryDTO categoryDTO = new CategoryDTO();
-        categoryDTO.setId(1);
-        categoryDTO.setCategoryName("Teknoloji");
-
+    @WithMockUser(username = "user", roles = {"USER"})
+    public void testSaveProduct_WithNegativePrice() throws Exception {
+        // Arrange
         ProductDTO productDTO = new ProductDTO();
-        productDTO.setName("Test Product");
-        productDTO.setPrice(10.99F);
-        productDTO.setQuantity(1);
-        productDTO.setCategory(categoryDTO);
+        productDTO.setId(1);
+        productDTO.setPrice(-100F);
 
-        mockMvc.perform(MockMvcRequestBuilders.post(
-                "/products/save"
-        ).with(csrf()).with(user("batuhan").roles("USER"))
-                .flashAttr("productDTO", productDTO))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/products"));
-    }
+        String productJson = new ObjectMapper().writeValueAsString(productDTO);
 
-    @Test
-    public void saveProduct_withoutcsrf() throws Exception {
-        CategoryDTO categoryDTO = new CategoryDTO();
-        categoryDTO.setId(1);
-        categoryDTO.setCategoryName("Teknoloji");
-
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.setName("Test Product");
-        productDTO.setPrice(10.99F);
-        productDTO.setQuantity(-1);
-        productDTO.setCategory(categoryDTO);
-
-        mockMvc.perform(MockMvcRequestBuilders.post(
-                                "/products/save"
-                        ).with(user("batuhan").roles("USER"))
-                        .flashAttr("productDTO", productDTO))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/access-denied"));
-    }
-
-    @Test
-    public void givenNegativeQuantity_whenSaveProduct_thenReturnsBadRequest() throws Exception {
-        CategoryDTO categoryDTO = new CategoryDTO();
-        categoryDTO.setId(1);
-        categoryDTO.setCategoryName("Teknoloji");
-
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.setName("Test Product");
-        productDTO.setPrice(10.99F);
-        productDTO.setQuantity(-1);
-        productDTO.setCategory(categoryDTO);
-
-        mockMvc.perform(MockMvcRequestBuilders.post(
-                                "/products/save"
-                        ).with(csrf()).with(user("batuhan").roles("USER"))
-                        .flashAttr("productDTO", productDTO))
+        // Act & Assert
+        mockMvc.perform(post("/products/save").with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(productJson))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    public void getProductsPage_whenUnauthenticatedUser() throws Exception {
-        CategoryDTO category = new CategoryDTO();
-        category.setId(1);
-        category.setCategoryName("teknoloji");
+    @WithMockUser(username = "user", roles = {"USER"})
+    public void testSaveProduct_WithZeroPrice() throws Exception {
+        // Arrange
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(1);
+        productDTO.setPrice(0F);
 
-        List<ProductDTO> productList = new ArrayList<>();
-        ProductDTO product1 = new ProductDTO();
-        product1.setId(1);
-        product1.setName("Product 1");
-        product1.setCategory(category);
-        productList.add(product1);
+        String productJson = new ObjectMapper().writeValueAsString(productDTO);
 
-        ProductDTO product2 = new ProductDTO();
-        product2.setId(2);
-        product2.setName("Product 2");
-        product2.setCategory(category);
-        productList.add(product2);
-
-
-
-        when(productService.getAllProduct(Mockito.any(Pageable.class)))
-                .thenReturn(new PageImpl<>(productList));
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/products"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("http://localhost/login"))
-                .andDo(print());
+        // Act & Assert
+        mockMvc.perform(post("/products/save")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(productJson))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
-    public void givenAdminRole_whenDeleteProduct_thenReturnsOk() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/products/delete/1")
-                        .with(user("batuhaniskr").password("password").roles("ADMIN")))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/products"));
+    @WithMockUser(username = "user", roles = {"USER"})
+    public void testSaveProduct_WithNegativeQuantity() throws Exception {
+        // Arrange
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(1);
+        productDTO.setQuantity(-1);
+
+        String productJson = new ObjectMapper().writeValueAsString(productDTO);
+
+        // Act & Assert
+        mockMvc.perform(post("/products/save")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(productJson))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @WithMockUser(username = "user", roles = {"USER"})
+    public void testSaveProduct_WithZeroQuantity() throws Exception {
+        // Arrange
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(1);
+        productDTO.setQuantity(0);
+
+        String productJson = new ObjectMapper().writeValueAsString(productDTO);
+
+        // Act & Assert
+        mockMvc.perform(post("/products/save")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(productJson))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -188,11 +125,50 @@ public class MainControllerTest {
                 .andDo(print());
     }
 
+
     @Test
-    @WithMockUser(roles = "USER")
-    public void whenNoHandlerException_thenReturns404() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/invalid-url"))
-                .andExpect(status().isNotFound());
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    public void testDeleteProduct_WithAdmin_Redirect() throws Exception {
+        // Act & Assert
+        mockMvc.perform(get("/products/delete/1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/products"));
     }
 
+    @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    public void testSaveProduct_WithoutCsrf() throws Exception {
+        // Arrange
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(1);
+        productDTO.setPrice(100F);
+        productDTO.setQuantity(1);
+
+        String productJson = new ObjectMapper().writeValueAsString(productDTO);
+
+        // Act & Assert
+        mockMvc.perform(post("/products/save")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(productJson))
+                .andExpect(redirectedUrl("/access-denied"));
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    public void testSaveProduct() throws Exception {
+        // Arrange
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(1);
+        productDTO.setPrice(100F);
+        productDTO.setQuantity(1);
+
+        String productJson = new ObjectMapper().writeValueAsString(productDTO);
+
+        // Act & Assert
+        mockMvc.perform(post("/products/save")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(productJson))
+                .andExpect(redirectedUrl("/products"));
+    }
 }

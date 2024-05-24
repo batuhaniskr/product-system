@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,12 +43,16 @@ public class MainController {
 
     @GetMapping("")
     public String index(Model model, @RequestParam("page") Optional<Integer> page,
-                        @RequestParam("size") Optional<Integer> size) {
+                        @RequestParam("size") Optional<Integer> size,
+                        @AuthenticationPrincipal UserDetails userDetails) {
+
+
         page.ifPresent(p -> currentPage = p);
         size.ifPresent(s -> pageSize = s);
 
         Pageable pageable = new PageRequest(currentPage - 1, pageSize);
-        Page<ProductDTO> productPage = productService.getAllProduct(pageable);
+        String userEmail = userDetails.getUsername();
+        Page<ProductDTO> productPage = productService.getAllProduct(pageable, userEmail);
 
         model.addAttribute("productPage", productPage);
 
@@ -71,9 +78,10 @@ public class MainController {
     }
 
     @PostMapping(value = "/save")
-    public String save(@Valid ProductDTO productDTO) {
+    public String save(ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
         LOG.log(Level.INFO, "/ {0}",productDTO.getName());
-        productService.saveProduct(productDTO);
+        String userEmail = userDetails.getUsername();
+        productService.saveProduct(productDTO, userEmail);
 
         return "redirect:/products";
     }
