@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.batuhaniskr.product.model.User;
-import com.batuhaniskr.product.repository.UserRepository;
 
 @Service
 public class UserService {
