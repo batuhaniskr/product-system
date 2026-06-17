@@ -31,8 +31,6 @@ public class MainController {
     private ProductService productService;
     private CategoryService categoryService;
 
-    private static int currentPage = 1;
-    private static int pageSize = 5;
     private static final Logger LOG = Logger.getLogger(MainController.class.getName());
 
     @Autowired
@@ -42,30 +40,32 @@ public class MainController {
     }
 
     @GetMapping("")
-    public String index(Model model, @RequestParam("page") Optional<Integer> page,
-                        @RequestParam("size") Optional<Integer> size,
-                        @AuthenticationPrincipal UserDetails userDetails) {
+    public String index(Model model, 
+                    @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                    @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+                    @AuthenticationPrincipal UserDetails userDetails) {
 
+    Pageable pageable = createPageableRequest(page, size);
 
-        page.ifPresent(p -> currentPage = p);
-        size.ifPresent(s -> pageSize = s);
+    String userEmail = userDetails.getUsername();
+    Page<ProductDTO> productPage = productService.getAllProduct(pageable, userEmail);
 
-        Pageable pageable = new PageRequest(currentPage - 1, pageSize);
-        String userEmail = userDetails.getUsername();
-        Page<ProductDTO> productPage = productService.getAllProduct(pageable, userEmail);
+    model.addAttribute("productPage", productPage);
 
-        model.addAttribute("productPage", productPage);
-
-        int totalPages = productPage.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
-
-        return "products";
+    int totalPages = productPage.getTotalPages();
+    if (totalPages > 0) {
+        List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                .boxed()
+                .collect(Collectors.toList());
+        model.addAttribute("pageNumbers", pageNumbers);
     }
+
+    return "products";
+ }
+
+ private Pageable createPageableRequest(int page, int size) {
+    return new PageRequest(page - 1, size);
+}
 
 
     @GetMapping(value = "/add")
